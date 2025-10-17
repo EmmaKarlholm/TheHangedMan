@@ -62,7 +62,7 @@ namespace TheHangedMan.classes
                 {
                     if (word.Value == wordLength)
                     {
-                        relevantWords.Add(word.Value.ToString());
+                        relevantWords.Add(word.Key.ToString());
                     }
                 }
 

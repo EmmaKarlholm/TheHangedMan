@@ -1,10 +1,13 @@
-﻿namespace TheHangedMan
+﻿using TheHangedMan.classes;
+
+namespace TheHangedMan
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+
+
         }
 
 
