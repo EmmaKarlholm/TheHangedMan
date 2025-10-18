@@ -69,11 +69,17 @@ namespace TheHangedMan.classes
                     }
                 }
 
-                Random random = new Random();
-                int randomIndex = random.Next(1, relevantWords.Count);
-                Console.WriteLine("randomIndex was " + randomIndex);
-                string incomingWord = relevantWords[randomIndex];
-                return new Word(incomingWord);
+                if (relevantWords.Count > 0)
+                {
+                    Random random = new Random();
+                    int randomIndex = random.Next(0, relevantWords.Count);
+                    string incomingWord = relevantWords[randomIndex];
+                    return new Word(incomingWord);
+                }
+                else // Not a single word was found.
+                {
+                    return null;
+                }
             }
         }
     }
