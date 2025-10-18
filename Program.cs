@@ -1,4 +1,6 @@
-﻿using TheHangedMan.classes;
+﻿using System.Linq.Expressions;
+using TheHangedMan.classes;
+
 
 namespace TheHangedMan
 {
@@ -6,12 +8,12 @@ namespace TheHangedMan
     {
         static void Main(string[] args)
         {
-
-
+            bool stillRunning = true;
+            while (stillRunning)
+            {
+                stillRunning = MenuHandler.Start();
+            }
         }
-
-
-
 
         /// <summary>
         /// Shows error message to the user on screen without crashing the application.
