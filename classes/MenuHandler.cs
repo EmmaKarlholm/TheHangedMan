@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TheHangedMan.classes.imported;
 
 namespace TheHangedMan.classes
 {
@@ -45,7 +46,7 @@ namespace TheHangedMan.classes
                         Thread.Sleep(800);
                         Console.Write("\n\n\t\tPerhaps it is time for a game.\n\n");
                         Thread.Sleep(500);
-                        Program.Pause();
+                        Display.Pause();
                         break;
 
                     case 3: // Quit
@@ -101,7 +102,7 @@ namespace TheHangedMan.classes
 
                 string[] menuHeader = [
                     "\n\tThe bartender grins. \"Let's play a game of Hanged Man.\"\n",
-                    "\"\t\"Now, how hard would you like to play?\""
+                    "\"\t\"Now, how hard would you like to play?\"\n"
                 ];
 
                 string[] menuOptions = [

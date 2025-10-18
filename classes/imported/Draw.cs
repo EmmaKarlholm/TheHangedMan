@@ -19,5 +19,21 @@ namespace TheHangedMan.classes.imported
             Console.SetCursorPosition(x, y);
             Console.Write(text);
         }
+
+        public static void ASCII(string fileName)
+        {
+            if (File.Exists(fileName))
+            {
+                string artwork = File.ReadAllText(fileName);
+                Console.WriteLine(artwork);
+            }
+            else
+            {
+                Display.ErrorMessage($"Could not find file \"${fileName}\"!");
+                Environment.Exit(1);
+            }
+        }
+
     }
 }
+
