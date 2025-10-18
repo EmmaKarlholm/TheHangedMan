@@ -44,8 +44,16 @@ namespace TheHangedMan.classes
                     Console.Write("    Letters: ");
                     for (int i = 0; i < secretWord.Letters.Length; i++)
                     {
-                        Console.Write(secretWord.LetterSpaces[i].ToString().ToUpper());
-                        Console.Write(" ");
+                        if (failures < 6) // If the player is still playing, hide unguessed spaces.
+                        {
+                            Console.Write(secretWord.LetterSpaces[i].ToString().ToUpper());
+                            Console.Write(" ");
+                        }
+                        else // If the player has won, show the entire word.
+                        {
+                            Console.Write(secretWord.Letters[i].ToString().ToUpper());
+                            Console.Write(" ");
+                        }
                     }
 
                     Console.Write($"\n\n Previously guessed letters: ");
@@ -78,7 +86,7 @@ namespace TheHangedMan.classes
                     // Check if the player has lost the game next.
                     if (failures > 5)
                     {
-                        Thread.Sleep(1500);
+                        Thread.Sleep(2000);
                         WonGame(false);
                         break;
                     }
