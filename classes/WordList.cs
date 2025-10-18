@@ -29,11 +29,11 @@ namespace TheHangedMan.classes
             {
                 foreach (string line in File.ReadAllLines(wordsFile))
                 {
-                    string word = line.Trim().ToUpper();
+                    string word = line.Trim();
 
                     if (!string.IsNullOrEmpty(word))
                     {
-                        WordsAndLength[line] = (line.Length);
+                        WordsAndLength[word] = (word.Length);
                     }
                 }
             }
