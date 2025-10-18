@@ -30,7 +30,7 @@ namespace TheHangedMan.classes
                     }
                 case "hard":
                     {
-                        Word secretWord = WordList.RandomWord(random.Next(3, 7));
+                        Word secretWord = WordList.RandomWord(random.Next(3, 6));
                         GameManager.Start(secretWord);
                         break;
                     }
