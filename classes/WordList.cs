@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TheHangedMan.classes.imported;
+
 
 namespace TheHangedMan.classes
 {
@@ -37,7 +39,7 @@ namespace TheHangedMan.classes
             }
             else
             {
-                Program.ErrorMessage("Could not find Words file for WordList()!");
+                Display.ErrorMessage("Could not find Words file for WordList()!");
                 Environment.Exit(1);
             }
         }
@@ -51,12 +53,13 @@ namespace TheHangedMan.classes
         {
             if (WordsAndLength.Count == 0) // List is empty
             {
-                Program.ErrorMessage("WordsAndLength found empty in WordList.RandomWord!");
+                Display.ErrorMessage("WordsAndLength found empty in WordList.RandomWord!");
                 Environment.Exit(1);
                 return null; // This will never run. It is here to ensure the compiler remains happy.
             }
             else
             {
+                // Make a list of words which fits the relevant length.
                 List<string> relevantWords = new List<string>();
                 foreach (KeyValuePair<string, int> word in WordsAndLength)
                 {
@@ -67,7 +70,8 @@ namespace TheHangedMan.classes
                 }
 
                 Random random = new Random();
-                int randomIndex = random.Next(relevantWords.Count);
+                int randomIndex = random.Next(1, relevantWords.Count);
+                Console.WriteLine("randomIndex was " + randomIndex);
                 string incomingWord = relevantWords[randomIndex];
                 return new Word(incomingWord);
             }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TheHangedMan.classes.imported;
 
 namespace TheHangedMan.classes
 {
@@ -29,12 +30,10 @@ namespace TheHangedMan.classes
                 switch (menuSelection)
                 {
                     case 0: // Single player
-                        // STUFF WILL HAPPEN HERE
-
+                        SinglePlayerMenu();
                         break;
                     case 1: // Multi player
-                        // MORE STUFF WILL HAPPEN HERE
-
+                        //MultiPlayerMenu();
                         break;
                     case 2: // Ale
                         Console.Clear();
@@ -47,7 +46,7 @@ namespace TheHangedMan.classes
                         Thread.Sleep(800);
                         Console.Write("\n\n\t\tPerhaps it is time for a game.\n\n");
                         Thread.Sleep(500);
-                        Program.Pause();
+                        Display.Pause();
                         break;
 
                     case 3: // Quit
@@ -88,6 +87,52 @@ namespace TheHangedMan.classes
                                 "\tThis is kind of embarrassing. This should never run.\n" };
             }
 
+        }
+
+        public static void SinglePlayerMenu()
+        {
+
+            bool inMenu = true;
+            while (inMenu)
+            {
+                Console.Clear();
+                Console.WriteLine("\n\tThe bartender grins. \"Let's play a game of Hanged Man.\"\n");
+                Thread.Sleep(600);
+                Console.WriteLine();
+
+                string[] menuHeader = [
+                    "\n\tThe bartender grins. \"Let's play a game of Hanged Man.\"\n",
+                    "\"\t\"Now, how hard would you like to play?\"\n"
+                ];
+
+                string[] menuOptions = [
+                    "Give me something easy. (6-11 characters)",
+                    "I'd like a challenge. (3-5 characters)",
+                    "I want a word that is a specific length.",
+                    "Actually, let's not play."
+                ];
+
+                int menuSelection = Menu.Render(menuHeader, menuOptions);
+
+                switch (menuSelection)
+                {
+                    case 0:
+                        PlaySingle.ParseOptions("easy");
+                        break;
+                    case 1:
+                        PlaySingle.ParseOptions("hard");
+                        break;
+                    case 2:
+                        Console.Clear();
+                        Console.WriteLine("\t\"Oho.\" he chuffs. \"And what is that length then?\"");
+                        Console.Write("\t");
+                        string numberString = UserInput.TrimmedString();
+                        PlaySingle.ParseOptions(numberString);
+                        break;
+                    case 3:
+                        return;
+                }
+            }
         }
     }
 
