@@ -57,6 +57,7 @@ namespace TheHangedMan.classes
             }
             else
             {
+                // Make a list of words which fits the relevant length.
                 List<string> relevantWords = new List<string>();
                 foreach (KeyValuePair<string, int> word in WordsAndLength)
                 {
@@ -68,6 +69,7 @@ namespace TheHangedMan.classes
 
                 Random random = new Random();
                 int randomIndex = random.Next(relevantWords.Count);
+                Console.WriteLine("randomIndex was " + randomIndex);
                 string incomingWord = relevantWords[randomIndex];
                 return new Word(incomingWord);
             }
