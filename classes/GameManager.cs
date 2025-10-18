@@ -16,11 +16,9 @@ namespace TheHangedMan.classes
         /// The actual game starts here, choosing a word of the supplied wordLength.
         /// </summary>
         /// <param name="wordLength"></param>
-        public static void Start(int wordLength)
+        //public static void Start(int wordLength, bool isMultiplayer, string multiplayerWord)
+        public static void Start(Word secretWord)
         {
-            // Create the secret word.
-            Word secretWord = WordList.RandomWord(wordLength);
-
             if (secretWord != null)
             {
                 int failures = 0;

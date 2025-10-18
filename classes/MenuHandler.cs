@@ -9,6 +9,10 @@ namespace TheHangedMan.classes
 {
     internal class MenuHandler
     {
+        /// <summary>
+        /// Starts the main menu and handles its use. Returns false for quitting the program.
+        /// </summary>
+        /// <returns>bool</returns>
         public static bool Start()
         {
             bool isRunning = true;
@@ -33,7 +37,7 @@ namespace TheHangedMan.classes
                         SinglePlayerMenu();
                         break;
                     case 1: // Multi player
-                        //MultiPlayerMenu();
+                        PlayMulti.AskForInput();
                         break;
                     case 2: // Ale
                         Console.Clear();
@@ -88,6 +92,9 @@ namespace TheHangedMan.classes
 
         }
 
+        /// <summary>
+        /// The menu with options for setting up a single player game.
+        /// </summary>
         public static void SinglePlayerMenu()
         {
 
@@ -95,6 +102,7 @@ namespace TheHangedMan.classes
             while (inMenu)
             {
                 Console.Clear();
+                Console.CursorVisible = false;
                 Thread.Sleep(200);
                 Console.WriteLine();
 
@@ -135,5 +143,4 @@ namespace TheHangedMan.classes
             }
         }
     }
-
 }
