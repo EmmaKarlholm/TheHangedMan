@@ -20,6 +20,8 @@ namespace TheHangedMan.classes
         {
             if (secretWord != null)
             {
+                Console.CursorVisible = false;
+
                 int failures = 0;
 
                 // Fill the RevealedLetters array with spaces.
@@ -92,6 +94,8 @@ namespace TheHangedMan.classes
 
                     // Then return the game to continue.
                     Console.Write("\n  Please, make a guess: ");
+                    Console.CursorVisible = false;
+
 
                     ConsoleKeyInfo pressed = Console.ReadKey(true);
                     if (char.IsLetter(pressed.KeyChar))
