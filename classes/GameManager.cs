@@ -16,115 +16,137 @@ namespace TheHangedMan.classes
         /// The actual game starts here, choosing a word of the supplied wordLength.
         /// </summary>
         /// <param name="wordLength"></param>
-        public static void Start(int wordLength)
+        //public static void Start(int wordLength, bool isMultiplayer, string multiplayerWord)
+        public static void Start(Word secretWord)
         {
-            // Create the secret word.
-            Word secretWord = WordList.RandomWord(wordLength);
-            int failures = 0;
-
-            // Fill the LetterSpaces array with spaces.
-            for (int i = 0; i < secretWord.Letters.Length; i++)
+            if (secretWord != null)
             {
-                secretWord.LetterSpaces[i] = '_';
-            }
-            
-            List<char> guessedLetters = new List<char>();
+                int failures = 0;
 
-            bool stillPlaying = true;
-            while (stillPlaying)
-            {
-                // ChatGPT helped me find the syntax for how to draw on arbitrary places of the 
-                // terminal window without needing to clear the terminal window every update.
-                // This leads to a better user experience since there is less flicker on the
-                // eyes. I will be using this a lot more in the future.
-                DrawHangedMan.Picture(failures);
-
-                // Draw the list of letters.
-                Console.Write("    Letters: ");
+                // Fill the LetterSpaces array with spaces.
                 for (int i = 0; i < secretWord.Letters.Length; i++)
                 {
-                    Console.Write(secretWord.LetterSpaces[i].ToString().ToUpper());
-                    Console.Write(" ");
+                    secretWord.LetterSpaces[i] = '_';
                 }
 
-                Console.Write($"\n\n Previously guessed letters: ");
-                foreach (char guessed in guessedLetters)
-                {
-                    Console.Write(guessed.ToString().ToUpper());
-                }
+                List<char> guessedLetters = new List<char>();
 
-                // Before user input.
-                // Check if the user has won. This must be done after drawing graphics to
-                // ensure the final result is actually displayed to the user.
-
-                bool theTwoMatch = true; // Assume they match...
-                for (int i = 0; i < secretWord.Letters.Length; i++)
+                bool stillPlaying = true;
+                while (stillPlaying)
                 {
-                    if (secretWord.Letters[i] != secretWord.LetterSpaces[i]) // ... then check every char...
+                    // ChatGPT helped me find the syntax for how to draw on arbitrary places of the 
+                    // terminal window without needing to clear the terminal window every update.
+                    // This leads to a better user experience since there is less flicker on the
+                    // eyes. I will be using this a lot more in the future.
+                    DrawHangedMan.Picture(failures);
+
+                    // Draw the list of letters.
+                    Console.Write("    Letters: ");
+                    for (int i = 0; i < secretWord.Letters.Length; i++)
                     {
-                        theTwoMatch = false; // ... and set this at every possible mismatch.
-                    }
-                }
-
-                if (theTwoMatch) // If this remains true, then a match has been found.
-                {
-                    stillPlaying = false; // Thus the game has been solved!
-                    Thread.Sleep(1500);
-                    WonGame(true);
-                    break;
-                }
-
-                // Check if the player has lost the game next.
-                if (failures > 5)
-                {
-                    Thread.Sleep(1500);
-                    WonGame(false);
-                    break;
-                }
-
-                // Then return the game to continue.
-                Console.Write("\n  Please, make a guess: ");
-
-                ConsoleKeyInfo pressed = Console.ReadKey(true);
-                if (char.IsLetter(pressed.KeyChar))
-                {
-                    char guessedLetter = char.ToLower(pressed.KeyChar);
-
-                    // Check if user already made this guess before.
-                    bool uniqueGuess = true;
-                    foreach (char letter in guessedLetters)
-                    {
-                        if (letter == guessedLetter)
+                        if (failures < 6) // If the player is still playing, hide unguessed spaces.
                         {
-                            uniqueGuess = false;
+                            Console.Write(secretWord.LetterSpaces[i].ToString().ToUpper());
+                            Console.Write(" ");
+                        }
+                        else // If the player has won, show the entire word.
+                        {
+                            Console.Write(secretWord.Letters[i].ToString().ToUpper());
+                            Console.Write(" ");
                         }
                     }
 
-                    // Only unique guesses continue the game and risk adding failures.
-                    if (uniqueGuess)
+                    Console.Write($"\n\n Previously guessed letters: ");
+                    foreach (char guessed in guessedLetters)
                     {
-                        guessedLetters.Add(guessedLetter);
+                        Console.Write(guessed.ToString().ToUpper());
+                    }
 
-                        // Go through the word letter by letter and update the LetterSpaces along the way.
-                        bool wasGoodGuess = false;
-                        for (int i = 0; i < secretWord.Letters.Length; i++)
+                    // Before user input.
+                    // Check if the user has won. This must be done after drawing graphics to
+                    // ensure the final result is actually displayed to the user.
+
+                    bool theTwoMatch = true; // Assume they match...
+                    for (int i = 0; i < secretWord.Letters.Length; i++)
+                    {
+                        if (secretWord.Letters[i] != secretWord.LetterSpaces[i]) // ... then check every char...
                         {
-                            if (guessedLetter == secretWord.Letters[i])
+                            theTwoMatch = false; // ... and set this at every possible mismatch.
+                        }
+                    }
+
+                    if (theTwoMatch) // If this remains true, then a match has been found.
+                    {
+                        stillPlaying = false; // Thus the game has been solved!
+                        Thread.Sleep(1500);
+                        WonGame(true);
+                        break;
+                    }
+
+                    // Check if the player has lost the game next.
+                    if (failures > 5)
+                    {
+                        Thread.Sleep(2000);
+                        WonGame(false);
+                        break;
+                    }
+
+                    // Then return the game to continue.
+                    Console.Write("\n  Please, make a guess: ");
+
+                    ConsoleKeyInfo pressed = Console.ReadKey(true);
+                    if (char.IsLetter(pressed.KeyChar))
+                    {
+                        char guessedLetter = char.ToLower(pressed.KeyChar);
+
+                        // Check if user already made this guess before.
+                        bool uniqueGuess = true;
+                        foreach (char letter in guessedLetters)
+                        {
+                            if (letter == guessedLetter)
                             {
-                                secretWord.LetterSpaces[i] = guessedLetter;
-                                wasGoodGuess = true;
+                                uniqueGuess = false;
                             }
                         }
-                        if (wasGoodGuess == false)
+
+                        // Only unique guesses continue the game and risk adding failures.
+                        if (uniqueGuess)
                         {
-                            failures++;
+                            guessedLetters.Add(guessedLetter);
+
+                            // Go through the word letter by letter and update the LetterSpaces along the way.
+                            bool wasGoodGuess = false;
+                            for (int i = 0; i < secretWord.Letters.Length; i++)
+                            {
+                                if (guessedLetter == secretWord.Letters[i])
+                                {
+                                    secretWord.LetterSpaces[i] = guessedLetter;
+                                    wasGoodGuess = true;
+                                }
+                            }
+                            if (wasGoodGuess == false)
+                            {
+                                failures++;
+                            }
                         }
                     }
                 }
             }
 
+            // No relevant words were found.
+            else
+            {
+                Console.Clear();
+                Console.WriteLine("\tThe man behind the bar darts his gaze elsewhere and returns with an embarrassed look.\n");
+                Thread.Sleep(400);
+                Console.Write("\t\"I, eh, ");
+                Thread.Sleep(400);
+                Console.Write("I can't think of a lot of words in that range. Please try another one?\"\n\n");
+                Thread.Sleep(600);
+                Display.Pause();
+                return;
+            }
         }
-
 
         /// <summary>
         /// Handle the results of the game.

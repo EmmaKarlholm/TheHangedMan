@@ -9,6 +9,10 @@ namespace TheHangedMan.classes
 {
     internal class MenuHandler
     {
+        /// <summary>
+        /// Starts the main menu and handles its use. Returns false for quitting the program.
+        /// </summary>
+        /// <returns>bool</returns>
         public static bool Start()
         {
             bool isRunning = true;
@@ -33,7 +37,7 @@ namespace TheHangedMan.classes
                         SinglePlayerMenu();
                         break;
                     case 1: // Multi player
-                        //MultiPlayerMenu();
+                        PlayMulti.AskForInput();
                         break;
                     case 2: // Ale
                         Console.Clear();
@@ -65,17 +69,16 @@ namespace TheHangedMan.classes
         {
             string[][] introTexts =
             {
-                new[] { "\t\"Greetings, friend! This is the Hanged Man.\" the blonde man starts.",
+                new[] { "\t\tThe Hanged Man\n", "\t\"Greetings, friend! This is the Hanged Man.\" the blonde man starts.",
                         "\t\"Would you like some ale, or are we going straight into the games today?\"\n" },
-                new[] { "\t\"This here tavern is the Hanged Man, and I'll be your 'tender!\"",
+                new[] { "\t\tThe Hanged Man\n", "\t\"This here tavern is the Hanged Man, and I'll be your 'tender!\"",
                         "\tThe man's hand gestures towards the fire place before continuing.",
                         "\t\"Nevermind the beardless dwarf in the corner. Enjoy the games!\"\n" },
-                new[] { "\t\"The Hanged Man's open, but the beer ain't free.\"",
+                new[] { "\t\tThe Hanged Man\n", "\t\"The Hanged Man's open, but the beer ain't free.\"",
                         "\tSo the songs of this place are sung.",
-                        "\n\t\tPlay a game of... Hanged Man?\n" },
-                new[] { "\t\"Welcome to the Hanged Man!\" the bartender says as he polishes a glass.",
-                        "\t\"Entertain a game, or hazard a drink?\"",
-                        "\t\t\"Either way is fine by me, after all.\"\n"}
+                        "\n\t\"So... Play a game of... Hanged Man?\"\n" },
+                new[] { "\t\tThe Hanged Man\n", "\t\"Welcome to the Hanged Man!\" the bartender says as he polishes a glass.",
+                        "\t\"Entertain a game, or hazard a drink? Either way is fine by me, after all.\"\n" }
             };
             if (introNumber >= 0 && introNumber < introTexts.Length)
             {
@@ -89,6 +92,9 @@ namespace TheHangedMan.classes
 
         }
 
+        /// <summary>
+        /// The menu with options for setting up a single player game.
+        /// </summary>
         public static void SinglePlayerMenu()
         {
 
@@ -96,13 +102,13 @@ namespace TheHangedMan.classes
             while (inMenu)
             {
                 Console.Clear();
-                Console.WriteLine("\n\tThe bartender grins. \"Let's play a game of Hanged Man.\"\n");
-                Thread.Sleep(600);
+                Console.CursorVisible = false;
+                Thread.Sleep(200);
                 Console.WriteLine();
 
                 string[] menuHeader = [
                     "\n\tThe bartender grins. \"Let's play a game of Hanged Man.\"\n",
-                    "\"\t\"Now, how hard would you like to play?\"\n"
+                    "\t\"Now, how hard would you like to play?\"\n"
                 ];
 
                 string[] menuOptions = [
@@ -123,10 +129,12 @@ namespace TheHangedMan.classes
                         PlaySingle.ParseOptions("hard");
                         break;
                     case 2:
+                        Console.CursorVisible = true;
                         Console.Clear();
-                        Console.WriteLine("\t\"Oho.\" he chuffs. \"And what is that length then?\"");
-                        Console.Write("\t");
+                        Console.WriteLine("\t\"Oho.\" he chuffs. \"And what is that length then?\"\n");
+                        Console.Write("\tLength: ");
                         string numberString = UserInput.TrimmedString();
+                        Console.CursorVisible = false;
                         PlaySingle.ParseOptions(numberString);
                         break;
                     case 3:
@@ -135,5 +143,4 @@ namespace TheHangedMan.classes
             }
         }
     }
-
 }

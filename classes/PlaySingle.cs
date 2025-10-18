@@ -9,7 +9,7 @@ using TheHangedMan.classes.imported;
 namespace TheHangedMan.classes
 {
     /// <summary>
-    /// Handles the output of the MenuHandler to send data to the GameManager.
+    /// Handles the output of the MenuHandler to create a word to send to the GameManager.
     /// </summary>
     internal class PlaySingle
     {
@@ -23,24 +23,34 @@ namespace TheHangedMan.classes
             switch (difficulty)
             {
                 case "easy":
-                    GameManager.Start(random.Next(6,12));
-                    break;
-                case "hard":
-                    GameManager.Start(random.Next(1,6));
-                    break;
-                default:
-                    // I asked ChatGPT whether there was a better way of using a helper method such as this.
-                    // It told me that using var is generally easier to follow than writing a longer tuple with
-                    // manual specification, which I will trust. It also helped me shorten the amount of code in
-                    // StringToInteger as well.
-                    var (difficultyInt, wasSuccessful) = DataHandling.StringToInteger(difficulty);
-                    if (wasSuccessful)
                     {
-                        GameManager.Start(difficultyInt);
+                        Word secretWord = WordList.RandomWord(random.Next(6, 12));
+                        GameManager.Start(secretWord);
+                        break;
                     }
-                    break;
+                case "hard":
+                    {
+                        Word secretWord = WordList.RandomWord(random.Next(1, 6));
+                        GameManager.Start(secretWord);
+                        break;
+                    }
+                default:
+                    {
+                        // I asked ChatGPT whether there was a better way of using a helper method such as this.
+                        // It told me that using var is generally easier to follow than writing a longer tuple with
+                        // manual specification, which I will trust. It also helped me shorten the amount of code in
+                        // StringToInteger as well.
+                        var (difficultyInt, wasSuccessful) = DataHandling.StringToInteger(difficulty);
+                        if (wasSuccessful)
+                        {
+                            Word secretWord = WordList.RandomWord(difficultyInt);
+
+                            GameManager.Start(secretWord);
+                        }
+                        break;
+                    }
             }
-            
+
         }
     }
 }
