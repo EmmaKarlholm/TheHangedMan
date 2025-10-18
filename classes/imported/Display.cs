@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace TheHangedMan.classes.imported
 {
+    /// <summary>
+    /// Displays various screens.
+    /// </summary>
     internal class Display
     {
         /// <summary>

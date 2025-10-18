@@ -16,17 +16,16 @@ namespace TheHangedMan.classes
         /// The actual game starts here, choosing a word of the supplied wordLength.
         /// </summary>
         /// <param name="wordLength"></param>
-        //public static void Start(int wordLength, bool isMultiplayer, string multiplayerWord)
         public static void Start(Word secretWord)
         {
             if (secretWord != null)
             {
                 int failures = 0;
 
-                // Fill the LetterSpaces array with spaces.
+                // Fill the RevealedLetters array with spaces.
                 for (int i = 0; i < secretWord.Letters.Length; i++)
                 {
-                    secretWord.LetterSpaces[i] = '_';
+                    secretWord.RevealedLetters[i] = '_';
                 }
 
                 List<char> guessedLetters = new List<char>();
@@ -46,7 +45,7 @@ namespace TheHangedMan.classes
                     {
                         if (failures < 6) // If the player is still playing, hide unguessed spaces.
                         {
-                            Console.Write(secretWord.LetterSpaces[i].ToString().ToUpper());
+                            Console.Write(secretWord.RevealedLetters[i].ToString().ToUpper());
                             Console.Write(" ");
                         }
                         else // If the player has won, show the entire word.
@@ -69,7 +68,7 @@ namespace TheHangedMan.classes
                     bool theTwoMatch = true; // Assume they match...
                     for (int i = 0; i < secretWord.Letters.Length; i++)
                     {
-                        if (secretWord.Letters[i] != secretWord.LetterSpaces[i]) // ... then check every char...
+                        if (secretWord.Letters[i] != secretWord.RevealedLetters[i]) // ... then check every char...
                         {
                             theTwoMatch = false; // ... and set this at every possible mismatch.
                         }
@@ -114,13 +113,13 @@ namespace TheHangedMan.classes
                         {
                             guessedLetters.Add(guessedLetter);
 
-                            // Go through the word letter by letter and update the LetterSpaces along the way.
+                            // Go through the word letter by letter and update the RevealedLetters along the way.
                             bool wasGoodGuess = false;
                             for (int i = 0; i < secretWord.Letters.Length; i++)
                             {
                                 if (guessedLetter == secretWord.Letters[i])
                                 {
-                                    secretWord.LetterSpaces[i] = guessedLetter;
+                                    secretWord.RevealedLetters[i] = guessedLetter;
                                     wasGoodGuess = true;
                                 }
                             }
@@ -190,6 +189,5 @@ namespace TheHangedMan.classes
                 return;
             }
         }
-
     }
 }

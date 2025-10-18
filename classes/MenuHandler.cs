@@ -64,7 +64,11 @@ namespace TheHangedMan.classes
         }
 
 
-
+        /// <summary>
+        /// Renders a random intro text.
+        /// </summary>
+        /// <param name="introNumber">Index for the chosen text</param>
+        /// <returns></returns>
         public static string[] RandomIntro(int introNumber)
         {
             string[][] introTexts =

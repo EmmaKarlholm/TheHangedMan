@@ -11,9 +11,7 @@ namespace TheHangedMan.classes
         public string DisplayableWord { get; private set; }
         public int WordLength { get; private set; }
         public char[] Letters { get; private set; }
-        public char[] LetterSpaces { get; set; }
-        public char[] GuessedLetters { get; set; }
-        //public Dictionary<int, char> GuessedLetters { get; private set; }
+        public char[] RevealedLetters { get; set; }
 
         /// <summary>
         /// Creates a new Word object.
@@ -24,9 +22,7 @@ namespace TheHangedMan.classes
             DisplayableWord = incomingWord;
             WordLength = incomingWord.Length;
             Letters = ParseLetters(incomingWord);
-            LetterSpaces = new char[WordLength];
-            GuessedLetters = new char[WordLength];
-            //GuessedLetters = new Dictionary<int, char>();
+            RevealedLetters = new char[WordLength];
         }
 
         public char[] ParseLetters(string incomingWord)
