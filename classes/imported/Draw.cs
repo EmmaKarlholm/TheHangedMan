@@ -11,15 +11,19 @@ namespace TheHangedMan.classes.imported
         /// <summary>
         /// Draws arbitrary text on arbitrary parts of the screen.
         /// </summary>
-        /// <param name="text">string</param>
-        /// <param name="x">int</param>
-        /// <param name="y">int</param>
+        /// <param name="text">Text to be written</param>
+        /// <param name="x">X coordinate</param>
+        /// <param name="y">Y coordinate</param>
         public static void Here(string text, int x, int y)
         {
             Console.SetCursorPosition(x, y);
             Console.Write(text);
         }
 
+        /// <summary>
+        /// Draws ASCII art from a separate file. 
+        /// </summary>
+        /// <param name="fileName">Path to file</param>
         public static void ASCII(string fileName)
         {
             if (File.Exists(fileName))
