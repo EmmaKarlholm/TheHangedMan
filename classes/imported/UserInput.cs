@@ -1,4 +1,4 @@
-﻿namespace Bytebasket
+﻿namespace TheHangedMan
 {
     /// <summary>
     /// A class containing methods for handling terminal user inputs.

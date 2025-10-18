@@ -1,4 +1,4 @@
-﻿namespace Bytebasket
+﻿namespace TheHangedMan
 {
     internal class Menu
     {
@@ -48,6 +48,7 @@
                     case ConsoleKey.W:
                     case ConsoleKey.UpArrow:
                     case ConsoleKey.NumPad8:
+                        if (currentSelection == 0) { currentSelection = menuOptions.Length; }
                         if (currentSelection > 0) { currentSelection--; }
                         break;
 
@@ -56,7 +57,8 @@
                     case ConsoleKey.DownArrow:
                     case ConsoleKey.NumPad2:
                     case ConsoleKey.NumPad5:
-                        if (currentSelection < menuOptions.Length-1) { currentSelection++; }
+                        if (currentSelection < menuOptions.Length) { currentSelection++; }
+                        if (currentSelection == menuOptions.Length) { currentSelection = 0; }
                         break;
 
                     // "CONFIRM" keys

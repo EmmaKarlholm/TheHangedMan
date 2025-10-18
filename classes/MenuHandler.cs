@@ -8,5 +8,87 @@ namespace TheHangedMan.classes
 {
     internal class MenuHandler
     {
+        public static bool Start()
+        {
+            bool isRunning = true;
+            while (isRunning)
+            {
+                Random random = new Random();
+                int randomIntro = random.Next(4);
+                string[] menuHeader = RandomIntro(randomIntro);
+
+                string[] menuOptions = [
+                    "Play the Hanged Man with the bartender",
+                    "Play the Hanged Man with a friend",
+                    "Have an ale",
+                    "Leave the tavern"
+                ];
+
+                int menuSelection = Menu.Render(menuHeader, menuOptions);
+
+                switch (menuSelection)
+                {
+                    case 0: // Single player
+                        // STUFF WILL HAPPEN HERE
+
+                        break;
+                    case 1: // Multi player
+                        // MORE STUFF WILL HAPPEN HERE
+
+                        break;
+                    case 2: // Ale
+                        Console.Clear();
+                        Console.Write("\tYou take a moment with a drink of your choice.");
+                        for (int i = 0; i < 2; i++)
+                        { 
+                            Thread.Sleep(300);
+                            Console.Write(" .");
+                        }
+                        Thread.Sleep(800);
+                        Console.Write("\n\n\t\tPerhaps it is time for a game.\n\n");
+                        Thread.Sleep(500);
+                        Program.Pause();
+                        break;
+
+                    case 3: // Quit
+                        Console.Clear();
+                        Console.WriteLine("\n\t\t\"Please come again!\" you hear bellowed as you leave.");
+                        Thread.Sleep(1000);
+                        return false;
+                }
+            }
+            return true;
+        }
+
+
+
+        public static string[] RandomIntro(int introNumber)
+        {
+            string[][] introTexts =
+            {
+                new[] { "\t\"Greetings, friend! This is the Hanged Man.\" the blonde man starts.",
+                        "\t\"Would you like some ale, or are we going straight into the games today?\"\n" },
+                new[] { "\t\"This here tavern is the Hanged Man, and I'll be your 'tender!\"",
+                        "\tThe man's hand gestures towards the fire place before continuing.",
+                        "\t\"Nevermind the beardless dwarf in the corner. Enjoy the games!\"\n" },
+                new[] { "\t\"The Hanged Man's open, but the beer ain't free.\"",
+                        "\tSo the songs of this place are sung.",
+                        "\n\t\tPlay a game of... Hanged Man?\n" },
+                new[] { "\t\"Welcome to the Hanged Man!\" the bartender says as he polishes a glass.",
+                        "\t\"Entertain a game, or hazard a drink?\"",
+                        "\t\t\"Either way is fine by me, after all.\"\n"}
+            };
+            if (introNumber >= 0 && introNumber < introTexts.Length)
+            {
+                return introTexts[introNumber];
+            }
+            else
+            {
+                return new[] {  "\t\tWelcome to the Hanged Man!",
+                                "\tThis is kind of embarrassing. This should never run.\n" };
+            }
+
+        }
     }
+
 }
